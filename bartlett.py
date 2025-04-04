@@ -8,7 +8,7 @@ def bartlett_test(*groups):
     pooled_var = sum((len(group)-1)*np.var(group, ddof=1) for group in groups) / (N-k)
 
     num = (N-k)*np.log(pooled_var) - sum((len(group)-1)*np.log(np.var(group, ddof=1)) for group in groups)
-    denum = 1 + 1/(3*(k-1)) * sum(1/(len(group)-1) - 1/(N-k) for group in groups)
+    denum = 1 + 1/(3*(k-1)) * (sum(1/(len(group)-1) for group in groups) - 1/(N-k))    
     T = num/denum
 
     return T, chi2.sf(T, k-1)
