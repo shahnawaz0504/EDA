@@ -1,5 +1,5 @@
 import numpy as np
-from scipy.stats import t, spearmanr
+from scipy.stats import t, spearmanr, rankdata
 
 data_x = [56, 75,45,	71,	62,	64,	58,	80,	76,	61]
 data_y = [66, 70,40,	60,	65,	56,	59,	77,	67,	63]
@@ -11,8 +11,8 @@ def spearman_rank_corr_test(x, y, alternative='two-sided'):
     if len(x) != len(y):
         raise ValueError("Input arrays must have the same length")
 
-    rank_x = np.argsort(np.argsort(x))
-    rank_y = np.argsort(np.argsort(y))
+    rank_x = rankdata(x)
+    rank_y = rankdata(y)
     d = rank_x - rank_y
     n = len(x)
     r = 1 - (6 * np.sum(d**2)) / (n * (n**2 - 1))
